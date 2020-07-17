@@ -17,6 +17,9 @@ class LinkedList:
     def __init__(self):
         self.head = None
 
+    def set_head(self, node):
+        self.head = node
+
     def add_to_head(self, value):
         node = Node(value)
 
@@ -33,12 +36,14 @@ class LinkedList:
         while current:
             if current.get_value() == value:
                 return True
-            print(current.get_value())
             current = current.get_next()
 
         return False
 
     def reverse_list(self, node, prev):
-        if prev is not None:
-            node.value, prev.value = (prev.value, node.value)
-        node is None or node.next is None or self.reverse_list(node.next, node)
+        if node is None:
+            self.set_head(prev)
+        else:
+            next = node.get_next()
+            node.set_next(prev)
+            self.reverse_list(next, node)
