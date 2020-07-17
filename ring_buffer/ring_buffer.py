@@ -1,19 +1,31 @@
 class RingBuffer:
     def __init__(self, capacity):
         self.buffer = []
+        self.age = []
         self.capacity = capacity
 
     def append(self, item):
-        node = {'value': item, 'age': self.capacity}
-        if len(self.buffer) == self.capacity:
+        if len(self.buffer) >= self.capacity:
             for i in range(self.capacity):
-                if self.buffer[i]['age'] <= 0:
-                    self.buffer[i] = node
+                if self.age[i] <= 0:
+                    self.buffer[i] = item
+                    self.age[i] = self.capacity - 1
                 else:
-                    self.buffer[i]['age'] -= 1
+                    self.age[i] -= 1
         else:
-            for i in range(self.capacity):
-                self.buffer[i]['age'] -= 1
-            self.buffer.append(node)
+            for i in range(len(self.age)):
+                self.age[i] -= 1
+            self.buffer.append(item)
+            self.age.append(self.capacity - 1)
+        print(self.buffer)
     def get(self):
-        return [node['value'] for node in self.buffer]
+        return self.buffer
+
+if __name__ == "__main__":
+    ring = RingBuffer(5)
+    ring.append(1)
+    ring.append(2)
+    ring.append(3)
+    ring.append(4)
+    ring.append(5)
+    ring.append(6)
