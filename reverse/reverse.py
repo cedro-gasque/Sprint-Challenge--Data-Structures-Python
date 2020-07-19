@@ -9,9 +9,8 @@ class Node:
     def get_next(self):
         return self.next
 
-    def set_next(self, next=None):
+    def set_next(self, next):
         self.next = next
-        return self
 
 class LinkedList:
     def __init__(self):

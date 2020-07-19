@@ -17,7 +17,6 @@ class RingBuffer:
                 self.age[i] -= 1
             self.buffer.append(item)
             self.age.append(self.capacity - 1)
-        print(self.buffer)
     def get(self):
         return self.buffer
 
